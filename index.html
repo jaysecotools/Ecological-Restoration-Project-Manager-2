@@ -1386,22 +1386,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 100);
     
     // Form event listeners
-    document.getElementById('project-form').addEventListener('submit', handleProjectSubmit);
-    document.getElementById('monitoring-form').addEventListener('submit', handleMonitoringSubmit);
-    document.getElementById('report-form').addEventListener('submit', handleReportSubmit);
-    document.getElementById('team-member-form').addEventListener('submit', handleTeamMemberSubmit);
-    document.getElementById('observation-form').addEventListener('submit', handleObservationSubmit);
-    
-    // Data menu event listeners
-    document.querySelectorAll('.data-menu-item').forEach(item => {
-      item.addEventListener('click', function(e) {
-        e.preventDefault();
-        const action = this.getAttribute('data-action');
-        handleDataMenu(action);
-      });
-    });
+// Use event delegation for form submissions
+document.addEventListener('submit', function(e) {
+  if (e.target.matches('#project-form')) {
+    e.preventDefault();
+    handleProjectSubmit(e);
+  } else if (e.target.matches('#monitoring-form')) {
+    e.preventDefault();
+    handleMonitoringSubmit(e);
+  } else if (e.target.matches('#report-form')) {
+    e.preventDefault();
+    handleReportSubmit(e);
+  } else if (e.target.matches('#team-member-form')) {
+    e.preventDefault();
+    handleTeamMemberSubmit(e);
+  } else if (e.target.matches('#observation-form')) {
+    e.preventDefault();
+    handleObservationSubmit(e);
+  }
+});
 
-    document.getElementById('data-menu-toggle').addEventListener('click', toggleDataMenu);
+// Note: Removed data menu event listeners since those elements don't exist in your HTML
 
     // Close dropdowns when clicking outside
     document.addEventListener('click', function(event) {
